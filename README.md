@@ -1,0 +1,1 @@
+Some exercises that I'm making to learn Go Lang
