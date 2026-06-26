@@ -11,6 +11,7 @@ type Combatant interface {
 	HealDamage(amount int)
 }
 
+// Dragon Implementation
 type Dragon struct {
 	Name      string
 	Health    int
@@ -47,10 +48,7 @@ func (d *Dragon) HealDamage(amount int) {
 	d.Health += amount
 }
 
-func BattleReport(c Combatant) {
-	fmt.Printf("This combatant attacks for %d and defends with %d\n", c.Attack(), c.Defend())
-}
-
+// Cleric Implementation
 type Healer interface {
 	Heal(target Combatant)
 }
@@ -86,11 +84,15 @@ func (cl *Cleric) TakeDamage(amount int) {
 func (cl *Cleric) Heal(target Combatant) {
 	healAmount := cl.Wisdom * 2
 	target.HealDamage(healAmount)
-	fmt.Printf("%s casts Heal on %s!\n", cl.Name, target.GetName())
+	fmt.Printf("%s casts Heal on %s for +%d HP!\n", cl.Name, target.GetName(), healAmount)
 }
 
 func (cl *Cleric) HealDamage(amount int) {
 	cl.Health += amount
+}
+
+func BattleReport(c Combatant) {
+	fmt.Printf("This combatant attacks for %d and defends with %d\n", c.Attack(), c.Defend())
 }
 
 func BattleArena(c1 Combatant, c2 Combatant) {
@@ -129,8 +131,6 @@ func main() {
 	dragon := &Dragon{Name: "Smaug", Health: 80, FirePower: 20, Scales: 5}
 	cleric := &Cleric{Name: "Faith", Health: 50, Strength: 8, Wisdom: 12}
 
-	// Interface Composition in action:
-	// cleric can be passed as BOTH a Combatant and a Healer because it implements both!
 	SupportRound(dragon, cleric)
 	BattleArena(cleric, dragon)
 }
