@@ -123,7 +123,7 @@ func (c *Character) UseWeapon() {
 	}
 }
 
-func main() {
+func structsMain() {
 	hero := NewCharacter("Roan")
 	hero.DisplayStats()
 	//hero.GainXP(150)
